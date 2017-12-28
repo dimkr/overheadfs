@@ -28,7 +28,7 @@ endif
 
 overheadfs = executable('overheadfs',
                         'overheadfs.c',
-                        dependencies: [fuse, meson.get_compiler('c').find_library('dl')],
+                        dependencies: fuse,
                         c_args: ['-D_GNU_SOURCE', '-DFUSE_USE_VERSION=@0@'.format(api_level)],
                         install: true,
                         install_dir: get_option('sbindir'))
