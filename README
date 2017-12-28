@@ -1,0 +1,39 @@
+                     _                    _  __
+  _____   _____ _ __| |__   ___  __ _  __| |/ _|___
+ / _ \ \ / / _ \ '__| '_ \ / _ \/ _` |/ _` | |_/ __|
+| (_) \ V /  __/ |  | | | |  __/ (_| | (_| |  _\__ \
+ \___/ \_/ \___|_|  |_| |_|\___|\__,_|\__,_|_| |___/
+
+Overview
+========
+
+overheadfs is a FUSE (https://github.com/libfuse/libfuse) file system which
+delegates all file system operations to the file system mounted below it. In
+other words, it's a proxy file system.
+
+The only effect of mounting overheadfs on a certain directory is the overhead of
+FUSE.
+
+overheadfs is mostly useful for demonstration of FUSE and as reference code for
+file systems that mirror the original contents of their mount point, with
+exceptions: for example, a file system mounted on /etc, which mirrors all files
+except a dynamically-generated resolv.conf that specifies a random DNS server.
+
+Building
+========
+
+overheadfs is built using Meson (http://mesonbuild.com).
+
+    meson build
+    ninja -C build install
+
+overheadfs is compatible with both libfuse3 and the legacy libfuse2.
+
+Legal Information
+=================
+
+overheadfs is licensed under the GNU General Public License version 2.0, see
+COPYING for the license text. For a list of its authors and contributors, see
+AUTHORS.
+
+The ASCII art logo at the top was made using FIGlet (http://www.figlet.org/).
