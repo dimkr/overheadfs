@@ -1,7 +1,7 @@
 /*
  * this file is part of overheadfs.
  *
- * Copyright (C) 2017 Dima Krasner
+ * Copyright (C) 2017, 2018 Dima Krasner
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -136,12 +136,16 @@ static int ovfs_getattr(const char *name,
 	else
 #endif
 		ret = fstatat((int)(intptr_t)(fuse_get_context()->private_data),
-	                  &name[1],
-	                  stbuf,
-	                  AT_EMPTY_PATH | AT_SYMLINK_NOFOLLOW);
+		              &name[1],
+		              stbuf,
+		              AT_EMPTY_PATH | AT_SYMLINK_NOFOLLOW);
 
 	if (ret < 0)
 		return -errno;
+
+	/* hack so read() doesn't return 0 against files in /proc */
+	if (!stbuf->st_size)
+		stbuf->st_size = 16 * 1024;
 
 	return 0;
 }
