@@ -493,7 +493,7 @@ static struct fuse_operations ovfs_oper = {
 
 int main(int argc, char *argv[])
 {
-	char *fuse_argv[4];
+	char *fuse_argv[5];
 	int dirfd, ret;
 
 	if (argc != 2) {
@@ -512,8 +512,9 @@ int main(int argc, char *argv[])
 #else
 	fuse_argv[2] = "-osuid,dev,allow_other,default_permissions";
 #endif
-	fuse_argv[3] = NULL;
-	ret = fuse_main(3, fuse_argv, &ovfs_oper, (void *)(intptr_t)dirfd);
+	fuse_argv[3] = "-s";
+	fuse_argv[4] = NULL;
+	ret = fuse_main(4, fuse_argv, &ovfs_oper, (void *)(intptr_t)dirfd);
 
 	close(dirfd);
 	return ret;
